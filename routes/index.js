@@ -22,7 +22,7 @@ router.get('/answer', (req, res) => {
   const length = parseInt(req.query.length);
   if (!isNaN(length)) {
     const wordList = makeWordList(length);
-    res.send(makeAnswer(wordList));
+    res.send({answer: makeAnswer(wordList)});
   } else {
     throw new Error("Could not parse number parameter");
   }
@@ -33,9 +33,9 @@ router.get('/checkGuess', (req, res) => {
   const length = guess.length;
   if (!isNaN(length)) {
     const wordList = makeWordList(length);
-    res.send(wordList.includes(guess));
+    res.send({isValid: wordList.includes(guess)});
   } else {
-    res.send(false);
+    throw new Error("Could not parse guess");
   }
 });
 
